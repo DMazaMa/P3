@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INICIO</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            background-size: 400% 400%;
+            animation: backgroundMove 10s infinite ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-container {
+            background: #fff4e0;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .main-container img {
+            width: 80%;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .menu-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        .menu-button, #options button {
+            font-family: 'Fredoka One', cursive; /* ✅ MISMA TIPOGRAFÍA QUE LOS TEXTOS */
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .menu-button:hover, #options button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <img src="images/Adobe Express - file.png" alt="Título">
+        <button class="menu-button" onclick="location.href='p3.html'">Iniciar Juego</button>
+        <button class="menu-button" onclick="location.href='score.html'">Scores</button>
+        <button class="menu-button" onclick="salirJuego()">Salir</button>
+    </div>
+
+    <script>
+        function salirJuego() {
+            alert("¡Gracias por jugar!");
+            window.close(); // Puede no funcionar en algunos navegadores modernos por restricciones de seguridad.
+        }
+    </script>
+</body>
+</html>

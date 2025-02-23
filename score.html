@@ -1,0 +1,97 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCORES</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            background-size: 400% 400%;
+            animation: backgroundMove 10s infinite ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        @keyframes backgroundMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .score-container {
+            background: #fff4e0;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #2b2b2b;
+        }
+
+        p {
+            font-size: 22px;
+            margin: 10px 0;
+            text-transform: uppercase;
+            color: #ff6b6b;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            padding: 12px;
+            width: 100%;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .back-button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        .menu-button, #options button {
+            font-family: 'Fredoka One', cursive; 
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .menu-button:hover, #options button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="score-container">
+        <h1>Mejor Score</h1>
+        <p id="high-score">0</p>
+        <button class="back-button" onclick="location.href='inicio.html'">Volver</button>
+    </div>
+
+    <script>
+        document.getElementById('high-score').textContent = localStorage.getItem('highScore') || 0;
+    </script>
+</body>
+</html>

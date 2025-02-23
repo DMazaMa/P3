@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Banderas</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        body {
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            background: linear-gradient(135deg, #fceabb, #f8b500);
+            background-size: 400% 400%;
+            animation: lightDynamicBackground 10s infinite ease-in-out;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        @keyframes lightDynamicBackground {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .main-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 30px;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .title-container, .game-container, .score-container {
+            background: #fff4e0;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .title-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .title-container img {
+            width: 80%;
+            border-radius: 12px;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #2b2b2b;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        img#flag {
+            width: 280px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 3px solid #ffd93d;
+            margin: 16px 0;
+        }
+
+        #options button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: none;
+            background: #ffd93d;
+            color: #222;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 10px;
+            text-transform: uppercase;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        #options button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #4d96ff;
+            border-radius: 5px;
+            transition: width 1s linear;
+        }
+
+        .score-container {
+            width: 220px;
+            text-align: center;
+            font-size: 16px;
+            color: #2b2b2b;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .score-container p {
+            margin: 0;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #multiplier {
+            font-size: 20px;
+            color: #ff6b6b;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .increase {
+            transform: scale(1.4);
+            color: #28a745 !important;
+        }
+        .menu-container {
+            background: #fff4e0;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            margin-top: 15px;
+        }
+
+        .menu-button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+        .menu-button, #options button {
+            font-family: 'Fredoka One', cursive; /* ✅ MISMA TIPOGRAFÍA QUE LOS TEXTOS */
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background: #ffd93d;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background 0.3s ease;
+        }
+
+        .menu-button:hover, #options button:hover {
+            background: #ff6b6b;
+            color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="title-container">
+            <img src="images/Adobe Express - file.png" alt="Título del juego">
+                <div class="menu-container">
+                    <button class="menu-button" onclick="location.href='inicio.html'">VOLVER AL MENÚ</button>
+                </div>
+        </div>
+
+        <div class="game-container">
+            <h2>¿A qué país pertenece esta bandera?</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <img id="flag" src="" alt="Bandera del país">
+            <div id="options"></div>
+        </div>
+
+        <div class="score-container">
+            <p>Puntuación: <span id="score">0</span></p>
+            <p>Multiplicador: <span id="multiplier">x1</span></p>
+            <p>Récord: <span id="high-score">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const flagElement = document.getElementById('flag');
+        const optionsElement = document.getElementById('options');
+        const scoreElement = document.getElementById('score');
+        const multiplierElement = document.getElementById('multiplier');
+        const highScoreElement = document.getElementById('high-score');
+        const progressBar = document.getElementById('progress-bar');
+
+        let score = 0;
+        let multiplier = 1;
+        let highScore = localStorage.getItem('highScore') || 0;
+        highScoreElement.textContent = highScore;
+        let timer;
+
+        const multiplierThresholds = [5, 10, 20, 30];
+
+        async function fetchCountries() {
+            const response = await fetch('https://restcountries.com/v3.1/all');
+            return await response.json();
+        }
+
+        async function generateQuestion() {
+            const countries = await fetchCountries();
+            const selected = countries.sort(() => 0.5 - Math.random()).slice(0, 4);
+            const correctAnswer = selected[0];
+
+            flagElement.src = correctAnswer.flags.png;
+            optionsElement.innerHTML = '';
+
+            selected.sort(() => Math.random() - 0.5);
+            selected.forEach(country => {
+                const button = document.createElement('button');
+                button.textContent = country.name.common.toUpperCase();
+                button.onclick = () => handleAnswer(country.name.common, correctAnswer.name.common);
+                optionsElement.appendChild(button);
+            });
+
+            startTimer();
+        }
+
+        function handleAnswer(selected, correct) {
+            clearTimeout(timer);
+
+            if (selected === correct) {
+                score += 1 * multiplier;
+                updateMultiplier(true);
+            } else {
+                score = 0;
+                multiplier = 1;
+                updateMultiplier(false);
+            }
+
+            scoreElement.textContent = score;
+
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('highScore', highScore); 
+                highScoreElement.textContent = highScore;
+            }
+
+            generateQuestion();
+        }
+
+        function updateMultiplier(correctAnswer) {
+            const previousMultiplier = multiplier;
+            multiplier = 1;
+            multiplierThresholds.forEach((threshold, index) => {
+                if (score >= threshold) multiplier = index + 2;
+            });
+
+            multiplierElement.textContent = `x${multiplier}`;
+
+            if (multiplier > previousMultiplier && correctAnswer) {
+                multiplierElement.classList.add('increase');
+                setTimeout(() => multiplierElement.classList.remove('increase'), 500);
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 20;
+            progressBar.style.width = '100%';
+            clearTimeout(timer);
+
+            function updateProgress() {
+                timeLeft--;
+                progressBar.style.width = (timeLeft / 20) * 100 + '%';
+
+                if (timeLeft <= 0) {
+                    score = 0;
+                    multiplier = 1;
+                    scoreElement.textContent = score;
+                    multiplierElement.textContent = `x${multiplier}`;
+                    generateQuestion();
+                } else {
+                    timer = setTimeout(updateProgress, 1000);
+                }
+            }
+
+            timer = setTimeout(updateProgress, 1000);
+        }
+
+        generateQuestion();
+    </script>
+</body>
+</html>
